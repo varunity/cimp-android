@@ -17,12 +17,11 @@ class SavingsAccount extends Account implements Transactional{
 	
 	// withdraw funds but check to ensure that the result would not be less than zero
 	// return false and don't allow withdrawals in that case
-	public boolean withdraw(double amount) {
+	public void withdraw(double amount) throws InvalidTransactionException{
 		if( (this.balance - amount) >= this.overdraftLimit) {
 			this.balance -= amount;
-			return true;
 		} else {
-			return false;
+			throw new InvalidTransactionException("This amount requested exceeds your balance.");
 		}
 	}
 	
@@ -34,4 +33,6 @@ class SavingsAccount extends Account implements Transactional{
 			return false;
 		}
 	}
+	
+
 }

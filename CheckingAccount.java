@@ -1,6 +1,6 @@
 
 
-class CheckingAccount extends Account implements Transactional {
+class CheckingAccount extends Account implements Transactional{
 	
 	// According to our specification, savings accounts have no protection. 
 	// You cannot carry a negative balance 
@@ -13,12 +13,12 @@ class CheckingAccount extends Account implements Transactional {
 	}
 	
 	// allow for withdrawals but only if the result would not exceed the overdraft limit
-	public boolean withdraw(double amount) {
+	public void withdraw(double amount) throws InvalidTransactionException{
 		if( (this.balance - amount) >= this.overdraftLimit) {
 			this.balance -= amount;
-			return true;
+			
 		} else {
-			return false;
+			throw new InvalidTransactionException("This amount requested exceeds your balance.");
 		}
 	}
 	
